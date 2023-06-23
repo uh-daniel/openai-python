@@ -47,7 +47,6 @@ def prompt_to_palette():
     colors = get_colors(query)
     return {"colors": colors}
 
-
 @app.route("/")
 def index():
     return render_template("index.html")
