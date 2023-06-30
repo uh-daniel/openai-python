@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Color Palette Generator</title>
+    <title>챗봇 채팅방</title>
 
     <link rel="stylesheet" href="app.css">
 
 </head>
 <body>
+
     <div class="container"></div>
 
     <form id="form">
@@ -17,7 +18,16 @@
         <button class="btn">SUBMIT</button>
     </form>
 
+    <h1>챗봇 채팅방</h1>
+    <div id="chat-container"></div>
+
+    <form id="user-input" action="/chat" method="POST">
+        <input type="text" name="userMessage" id="userMessage" autocomplete="off">
+        <input type="submit" value="Send">
+    </form>
+
     <script src="app.js"></script>
+    
 </body>
 
 </html>

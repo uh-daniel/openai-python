@@ -23,6 +23,30 @@ function getColors() {
     })
 }
 
+const chatContainer = document.getElementById('chat-container');
+const userInputForm = document.getElementById('user-input');
+const userMessageInput = document.getElementById('userMessage');
+
+userInputForm.onsubmit = function(event) {
+    event.preventDefault();
+
+    const userMessage = userMessageInput.value;
+    appendMessage('User', userMessage);
+
+    fetch('/chat', {
+        method: 'POST',
+        body: new URLSearchParams({
+            'userMessage': userMessage
+        })
+    })
+    .then(response => response.text())
+    .then(response => {
+        appendMessage('Chatbot', response);
+        userMessageInput.value = '';
+    });
+}
+
+//------------------------------------
 function createColorBoxes(colors, parent) {
     parent.innerHTML = "";
     for(const color of colors) {
@@ -42,3 +66,8 @@ function createColorBoxes(colors, parent) {
     }
 }
 
+function appendMessage(author, message) {
+    const messageElement = document.createElement('p');
+    messageElement.innerHTML = `<strong>${author}:</strong> ${message}`;
+    chatContainer.appendChild(messageElement);
+}
