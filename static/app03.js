@@ -6,6 +6,7 @@ form.addEventListener("submit", function(e){
 
 function getColors() {
     const query = form.elements.query.value;
+    appendMessage('System', query);  //추가
     fetch("/palette", {
         method: "POST",
         headers: {
@@ -23,6 +24,26 @@ function getColors() {
     })
 }
 
+function createColorBoxes(colors, parent) {
+    parent.innerHTML = "";
+    for(const color of colors) {
+        const div = document.createElement("div");
+        div.classList.add("color");
+        div.style.backgroundColor = color;
+
+        div.addEventListener("click", function() {
+            navigator.clipboard.writeText(color);
+        })
+
+        const span = document.createElement("span");
+        //span.innerText = "HELLO!"
+        span.innerText = color;
+        div.appendChild(span);
+        parent.appendChild(div);
+    }
+}
+
+//------------------------------------
 const chatContainer = document.getElementById('chat-container');
 const userInputForm = document.getElementById('user-input');
 const userMessageInput = document.getElementById('userMessage');
@@ -44,26 +65,6 @@ userInputForm.onsubmit = function(event) {
         appendMessage('Chatbot', response);
         userMessageInput.value = '';
     });
-}
-
-//------------------------------------
-function createColorBoxes(colors, parent) {
-    parent.innerHTML = "";
-    for(const color of colors) {
-        const div = document.createElement("div");
-        div.classList.add("color");
-        div.style.backgroundColor = color;
-
-        div.addEventListener("click", function() {
-            navigator.clipboard.writeText(color);
-        })
-
-        const span = document.createElement("span");
-        //span.innerText = "HELLO!"
-        span.innerText = color;
-        div.appendChild(span);
-        parent.appendChild(div);
-    }
 }
 
 function appendMessage(author, message) {
